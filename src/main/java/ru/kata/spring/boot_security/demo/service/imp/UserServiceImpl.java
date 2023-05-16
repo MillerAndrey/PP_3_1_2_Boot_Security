@@ -43,7 +43,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     @Transactional
     public void save(User user) {
-        if ((user.getName().equals(null)) && (user.getLastName().equals(null)) && (user.getPassword().equals(null))) {
+        if ((user.getName() != "") && (user.getLastName() != "") && (user.getPassword() != "")) {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             userRepository.save(user);
         }
