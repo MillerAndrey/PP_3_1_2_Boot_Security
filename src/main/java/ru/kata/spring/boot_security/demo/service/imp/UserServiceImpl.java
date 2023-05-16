@@ -40,12 +40,15 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return userRepository.getById(id);
     }
 
+
     @Override
     @Transactional
     public void save(User user) {
+        if ((user.getName().equals("")) && (user.getLastName().equals("")) && (user.getPassword().equals(""))) {
+        } else {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
-    }
+    }}
 
     @Override
     @Transactional
