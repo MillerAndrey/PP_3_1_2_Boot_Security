@@ -9,18 +9,19 @@ import java.util.List;
 
 public interface UserService {
 
-    public List<User> index();
 
-    public User show(long id);
+    List<User> index();
 
-    public void save(User user);
+    User show(long id);
 
-    public void update(User updateUser);
+    void save(User user);
 
-    public void delete(Long id);
+    void update(User updateUser);
 
-    public User findByUserName(String username);
+    void delete(Long id);
 
-    public User findByUserId(Long id);
+    User findByUserName(String username);
+
+    User findByUserId(Long id);
 
 }

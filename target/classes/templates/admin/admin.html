@@ -33,10 +33,14 @@
     <td th:utext="${user.getEmail()}">
     <td th:utext="${user.getRoles()}">
     <td>
-      <form th:method="PATCH" th:action="@{/admin/updateInfo(userId=${user.getId()})}" th:object="${user}">
+      <form th:method="GET" th:action="@{/admin/updateInfo/{id}/edit(id=${user.getId()})}" th:object="${user}">
 
         <input type="submit" value="Update"/>
       </form>
+
+    <!--<form th:method="GET" th:action="@{/admin/userinfo/{id}/edit(id=${user.getId()})}">
+      <input type="submit" value="Edit">
+    </form>-->
 
       <form th:method="DELETE" th:action="@{/admin/delete(userId=${user.getId()})}">
         <input type="submit" value="Delete"/>

@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.repository.RoleRepository;
+import ru.kata.spring.boot_security.demo.service.imp.RoleService;
 import ru.kata.spring.boot_security.demo.service.imp.UserService;
 
 @Controller
@@ -14,12 +15,12 @@ import ru.kata.spring.boot_security.demo.service.imp.UserService;
 public class AdminController {
 
     private final UserService userService;
-    private final RoleRepository roleRepository;
+    private final RoleService roleService;
 
     @Autowired
-    public AdminController(UserService userService, RoleRepository roleRepository) {
+    public AdminController(UserService userService, RoleRepository roleRepository, RoleService roleService) {
         this.userService = userService;
-        this.roleRepository = roleRepository;
+        this.roleService = roleService;
     }
 
     @GetMapping()
@@ -35,19 +36,18 @@ public class AdminController {
         return "admin/user-info";
     }
 
-    @PostMapping("/saveUser")
+    @GetMapping("/saveUser")
     public ModelAndView saveUser(@ModelAttribute("user_info") User user) {
         userService.save(user);
         return new ModelAndView("redirect:/admin");
     }
 
 
-    @PatchMapping("/updateInfo")
-    public String updateUser(@RequestParam(value = "userId") Long id, Model model) {
-        User user = userService.show(id);
-        model.addAttribute("roles",roleRepository.findAll());
-        model.addAttribute("user", user);
-        return "admin/user-edit";
+    @GetMapping("/updateInfo/{id}/edit")
+    public ModelAndView updateUser(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("roles",roleService.findRoles());
+        model.addAttribute("user", userService.show(id));
+        return new ModelAndView("admin/user-edit");
     }
 
     @PatchMapping("/updateUser")

@@ -15,7 +15,7 @@
 
 
 <br>
-    <form th:method="POST" th:action="@{/admin/saveUser}" th:object="${user}">
+    <form th:method="GET" th:action="@{/admin/saveUser}" th:object="${user}">
 
         <input type="hidden" th:field="*{id}">
         <label for="name">Name: </label>
