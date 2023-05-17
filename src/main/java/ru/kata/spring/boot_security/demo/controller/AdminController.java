@@ -18,25 +18,25 @@ public class AdminController {
     private final RoleService roleService;
 
     @Autowired
-    public AdminController(UserService userService, RoleRepository roleRepository, RoleService roleService) {
+    public AdminController(UserService userService, RoleService roleService) {
         this.userService = userService;
         this.roleService = roleService;
     }
 
     @GetMapping()
     public String getUserAll(Model model) {
-        model.addAttribute("admin", userService.index());
+        model.addAttribute("admin", userService.getAllUsers());
         return "admin/admin";
     }
 
     @GetMapping("/addNewUser")
     public String addNewUser(Model model) {
-        User user = new User();
-        model.addAttribute("user", user);
+        model.addAttribute("user", new User());
+        model.addAttribute("roles", roleService.findRoles());
         return "admin/user-info";
     }
 
-    @GetMapping("/saveUser")
+    @PostMapping("/saveUser")
     public ModelAndView saveUser(@ModelAttribute("user_info") User user) {
         userService.save(user);
         return new ModelAndView("redirect:/admin");
@@ -45,7 +45,7 @@ public class AdminController {
 
     @GetMapping("/updateInfo/{id}/edit")
     public ModelAndView updateUser(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("roles",roleService.findRoles());
+        model.addAttribute("roles", roleService.findRoles());
         model.addAttribute("user", userService.show(id));
         return new ModelAndView("admin/user-edit");
     }

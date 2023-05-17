@@ -10,7 +10,7 @@ import java.util.List;
 public interface UserService {
 
 
-    List<User> index();
+    List<User> getAllUsers();
 
     User show(long id);
 

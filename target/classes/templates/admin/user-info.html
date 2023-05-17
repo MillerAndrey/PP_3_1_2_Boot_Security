@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <div th:if="${user.getName() == null}">
-    <title>User add</title>
+        <title>User add</title>
     </div>
 
 </head>
@@ -15,30 +15,35 @@
 
 
 <br>
-    <form th:method="GET" th:action="@{/admin/saveUser}" th:object="${user}">
+<form th:method="POST" th:action="@{/admin/saveUser}" th:object="${user}">
 
-        <input type="hidden" th:field="*{id}">
-        <label for="name">Name: </label>
-        <input type="text" th:field="*{name}" id="name"/>
+    <input type="hidden" th:field="*{id}">
+    <label for="name">Name: </label>
+    <input type="text" th:field="*{name}" id="name"/>
     <br><br>
-        <label for="lastName">Last Name: </label>
-        <input type="text" th:field="*{lastName}" id="lastName"/>
+    <label for="lastName">Last Name: </label>
+    <input type="text" th:field="*{lastName}" id="lastName"/>
     <br><br>
-        <label for="age">Age: </label>
-        <input type="text" th:field="*{age}" id="age"/>
+    <label for="age">Age: </label>
+    <input type="text" th:field="*{age}" id="age"/>
     <br><br>
-        <label for="age">Email: </label>
-        <input type="text" th:field="*{email}" id="email"/>
+    <label for="age">Email: </label>
+    <input type="text" th:field="*{email}" id="email"/>
+    <br><br>
+    <label for="age">Password: </label>
+    <input type="text" th:field="*{password}" id="password"/>
+    <br><br>
+
+    <select class="form-control" id="roles" name="roles" multiple="multiple">
         <br><br>
-        <label for="age">Password: </label>
-        <input type="text" th:field="*{password}" id="password"/>
-        <br><br>
-        <label for="name">Enter role (id, where 1-Admin, 2-User): </label>
-        <input type="text" th:field="*{roles}" id="role"/>
+        <option th:each="role : ${roles}"
+                th:selected="${role.role}"
+                th:value="${role.id}"
+                th:text="${role.role}">Role name
+        </option>
         <br><br>
         <input type="submit" value="OK"/>
-    </form>
-
+</form>
 
 
 </body>

@@ -31,7 +31,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
 
     @Override
-    public List<User> index() {
+    public List<User> getAllUsers() {
         return userRepository.findAll();
     }
 
@@ -44,11 +44,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     @Transactional
     public void save(User user) {
-        if ((user.getName().equals("")) && (user.getLastName().equals("")) && (user.getPassword().equals(""))) {
-        } else {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
-    }}
+    }
 
     @Override
     @Transactional
